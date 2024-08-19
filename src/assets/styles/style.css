@@ -1,0 +1,48 @@
+:root {
+  /* --- Colors --- */
+
+  --light-blue-100: 199, 84%, 55%; /* #2bb0ed */
+  --light-blue-500: 202, 83%, 41%; /* #127fbf */
+  --light-blue-900: 204, 96%, 27%; /* #035388 */
+
+  --blue-100: 210, 22%, 49%; /* #627d98 */
+  --blue-500: 209, 34%, 30%; /* #334e68 */
+  --blue-900: 209, 61%, 16%; /* #102a43 */
+
+  --gray-100: 210, 36%, 96%; /* #f0f4F8 */
+  --gray-300: 212, 33%, 89%; /* #d9e2ec */
+  --gray-500: 210, 31%, 80%; /* #bcccdc */
+  --gray-700: 211, 27%, 70%; /* #9fb3c8 */
+  --gray-900: 209, 23%, 60%; /* #829ab1 */
+
+  --white: 0, 0%, 100%; /* #ffffff */
+
+  /* --- Typography --- */
+
+  --font-family-sans-serif: 'Montserrat', sans-serif;
+
+  /* --- Layout --- */
+
+  --space-multiplier: 0.8;
+
+  --content-max-width: 140rem;
+
+  --grid-spacer-width: 1.5rem;
+  --grid-column-count: 12;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--gray-100);
+}
