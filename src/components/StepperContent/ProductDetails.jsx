@@ -1,38 +1,30 @@
-import { Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductData } from '../../store/featrue/productSlice';
 
-const StepperProductDetails = ({handleNext}) => {
+const ProductDetails = ({ handleNext, currentStep, stepLength }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     handleNext();
-    console.log(data);
+    dispatch(addProductData(data));
 
     console.log('Submitted');
     // Handle form submission, e.g., send data to the server
   };
 
+  const state = useSelector((state) => state);
+  console.log('[productDetails]state==>>', state);
+
   return (
     <>
       <form id="product-form" onSubmit={handleSubmit(onSubmit)}>
-        {/* <FormContent register={register} errors={errors} /> */}
-
-        {/* <Stack direction="row" spacing={2}>
-          {currentStep > 1 ? (
-            <Button color="inherit" variant="contained">
-              Back
-            </Button>
-          ) : null}
-
-          <Button  type='button' className="btn" variant="contained">
-            {currentStep === stepsConfig.length ? 'Submit' : 'Next'}
-          </Button>
-        </Stack> */}
-
         <div>
           <label htmlFor="title">Product Title:</label>
           <input
@@ -114,12 +106,21 @@ const StepperProductDetails = ({handleNext}) => {
             <small className="error-message">{errors.taxAmount.message}</small>
           )}
         </div>
-        <Button variant="contained" type="submit">
-          Next
-        </Button>
+
+        <Stack direction="row" spacing={2}>
+          {currentStep > 1 ? (
+            <Button color="inherit" variant="contained">
+              Back
+            </Button>
+          ) : null}
+
+          <Button type="submit" className="btn" variant="contained">
+            {currentStep === stepLength ? 'Submit' : 'Next'}
+          </Button>
+        </Stack>
       </form>
     </>
   );
 };
 
-export default StepperProductDetails;
+export default ProductDetails;

@@ -1,8 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './MultiSteps.css';
-import { Button, Stack } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import FormContent from '../productDetails/FormContent';
 
 const MultiSteps = ({ stepsConfig = [] }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,14 +15,13 @@ const MultiSteps = ({ stepsConfig = [] }) => {
       marginRight: stepRef.current[stepsConfig.length - 1].offsetWidth / 2,
     });
     console.log(stepRef.current[stepsConfig.length - 1].offsetWidth);
-  }, [stepRef]);
+  }, [stepRef.current]);
 
   if (!stepsConfig.length) {
     return <></>;
   }
 
   const handleNext = () => {
-    console.log('clicked');
     setCurrentStep((prevStep) => {
       if (prevStep === stepsConfig.length) {
         setIsComplete(true);
@@ -35,6 +31,8 @@ const MultiSteps = ({ stepsConfig = [] }) => {
       }
     });
   };
+
+  const handlePrevious = () => {};
 
   const calculateProgressBarWidth = () => {
     return ((currentStep - 1) / (stepsConfig.length - 1)) * 100;
@@ -81,7 +79,12 @@ const MultiSteps = ({ stepsConfig = [] }) => {
         </div>
       </div>
 
-      <ActiveComponent handleNext={handleNext} />
+      <ActiveComponent
+        handleNext={handleNext}
+        currentStep={currentStep}
+        stepLength={stepsConfig.length}
+        isComplete={isComplete}
+      />
     </div>
   );
 };

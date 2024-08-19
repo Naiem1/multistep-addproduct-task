@@ -90,3 +90,17 @@ textarea {
   color: red;
   font-size: 12px;
 }
+
+
+.preview ul {
+  list-style-type: none;
+}
+
+.preview li {
+  font-size: 20px;
+  line-height: 2;
+}
+
+.preview li span {
+  font-weight: 600;
+}

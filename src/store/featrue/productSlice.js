@@ -1,3 +1,4 @@
+import { SatelliteAlt } from '@mui/icons-material';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -5,6 +6,7 @@ const initialState = {
   productDetails: {},
   inventoryDetails: {},
   image: '',
+  productData: {},
 };
 
 export const counterSlice = createSlice({
@@ -38,6 +40,11 @@ export const counterSlice = createSlice({
 
       state.products = deletedProduct;
     },
+
+    addProductData: (state, action) => {
+      console.log(action.payload.image)
+      state.productData = { ...state.productData, ...action.payload };
+    },
   },
 });
 
@@ -49,6 +56,7 @@ export const {
   reset,
   setProducts,
   deleteProduct,
+  addProductData,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

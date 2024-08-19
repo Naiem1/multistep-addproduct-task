@@ -4,6 +4,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductData } from '../../store/featrue/productSlice';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -17,20 +19,21 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const ImageUpload = ({ handleNext }) => {
+const ImageUpload = ({ handleNext, currentStep, stepLength }) => {
   const {
-    register,
     handleSubmit,
     formState: { errors },
     control,
   } = useForm();
   const [imagePreview, setImagePreview] = useState(null);
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     handleNext();
     console.log(data);
-    // Handle form submission, including image file
-    // Example: You might want to use FormData to send the file to the server
+    // dispatch(addProductData(imagePreview));
+
+    console.log(data);
   };
 
   const handleImageChange = (file) => {
@@ -44,6 +47,9 @@ const ImageUpload = ({ handleNext }) => {
       setImagePreview(null);
     }
   };
+
+  const state = useSelector((state) => state);
+  console.log('[imageUpload] state==>>', state);
 
   return (
     <form id="product-form" onSubmit={handleSubmit(onSubmit)}>
@@ -74,7 +80,9 @@ const ImageUpload = ({ handleNext }) => {
             </Button>
           )}
         />
-        {errors.image && <p>{errors.image.message}</p>}
+        {errors.image && (
+          <p className="error-message">{errors.image.message}</p>
+        )}
       </div>
 
       {imagePreview && (

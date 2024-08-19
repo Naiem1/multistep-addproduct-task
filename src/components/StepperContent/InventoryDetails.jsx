@@ -1,18 +1,23 @@
 import { Button, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { addProductData } from '../../store/featrue/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
-const StpperInventoryDetails = ({ handleNext }) => {
+const InventoryDetails = ({ handleNext, currentStep, stepLength }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const dispatch = useDispatch();
   const onSubmit = (data) => {
+    dispatch(addProductData(data));
     handleNext();
     console.log(data);
   };
 
+  const state = useSelector((state) => state);
+  console.log('[inventoryDetails] state==>>', state);
   return (
     <>
       <form id="product-form" onSubmit={handleSubmit(onSubmit)}>
@@ -99,4 +104,4 @@ const StpperInventoryDetails = ({ handleNext }) => {
   );
 };
 
-export default StpperInventoryDetails;
+export default InventoryDetails;
