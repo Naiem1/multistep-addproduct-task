@@ -43,6 +43,50 @@ a {
   text-decoration: none;
 }
 
+/* ==========================================================================
+   Container
+   ========================================================================== */
+
 body {
-  background-color: var(--gray-100);
+  background-color: #f0f4f8;
+}
+
+/* form */
+label {
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+input[type='text'],
+input[type='number'],
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* form container */
+
+.wrapper, .form-wrapper {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
 }
