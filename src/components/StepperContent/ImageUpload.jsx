@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductData } from '../../store/featrue/productSlice';
+import { Stack } from '@mui/material';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -19,7 +20,12 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const ImageUpload = ({ handleNext, currentStep, stepLength }) => {
+const ImageUpload = ({
+  handleNext,
+  currentStep,
+  stepLength,
+  handlePrevious,
+}) => {
   const {
     handleSubmit,
     formState: { errors },
@@ -30,10 +36,12 @@ const ImageUpload = ({ handleNext, currentStep, stepLength }) => {
 
   const onSubmit = (data) => {
     handleNext();
-    console.log(data);
-    // dispatch(addProductData(imagePreview));
 
-    console.log(data);
+    const formData = {
+      image: imagePreview,
+    };
+
+    dispatch(addProductData(formData));
   };
 
   const handleImageChange = (file) => {
@@ -49,7 +57,6 @@ const ImageUpload = ({ handleNext, currentStep, stepLength }) => {
   };
 
   const state = useSelector((state) => state);
-  console.log('[imageUpload] state==>>', state);
 
   return (
     <form id="product-form" onSubmit={handleSubmit(onSubmit)}>
@@ -95,9 +102,17 @@ const ImageUpload = ({ handleNext, currentStep, stepLength }) => {
         </div>
       )}
 
-      <Button variant="contained" type="submit">
-        Next
-      </Button>
+      <Stack sx={{ mt: 4 }} direction="row" spacing={2}>
+        {currentStep > 1 ? (
+          <Button color="inherit" variant="contained" onClick={handlePrevious}>
+            Back
+          </Button>
+        ) : null}
+
+        <Button type="submit" className="btn" variant="contained">
+          {currentStep === stepLength ? 'Submit' : 'Next'}
+        </Button>
+      </Stack>
     </form>
   );
 };

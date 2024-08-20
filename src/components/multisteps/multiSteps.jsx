@@ -14,7 +14,6 @@ const MultiSteps = ({ stepsConfig = [] }) => {
       marginLeft: stepRef.current[0].offsetWidth / 2,
       marginRight: stepRef.current[stepsConfig.length - 1].offsetWidth / 2,
     });
-    console.log(stepRef.current[stepsConfig.length - 1].offsetWidth);
   }, [stepRef.current]);
 
   if (!stepsConfig.length) {
@@ -32,7 +31,16 @@ const MultiSteps = ({ stepsConfig = [] }) => {
     });
   };
 
-  const handlePrevious = () => {};
+  const handlePrevious = () => {
+    setCurrentStep((prevStep) => {
+      if (prevStep === 1) {
+        setIsComplete(false);
+        return prevStep;
+      } else {
+        return prevStep > 0 ? prevStep - 1 : prevStep;
+      }
+    });
+  };
 
   const calculateProgressBarWidth = () => {
     return ((currentStep - 1) / (stepsConfig.length - 1)) * 100;
@@ -41,7 +49,7 @@ const MultiSteps = ({ stepsConfig = [] }) => {
   const ActiveComponent = stepsConfig[currentStep - 1]?.Component;
 
   return (
-    <div className="wrapper ">
+    <div className="wrapper " style={{ marginTop: '10px' }}>
       <div className="stepper">
         {stepsConfig.map((step, idx) => {
           return (
@@ -84,6 +92,9 @@ const MultiSteps = ({ stepsConfig = [] }) => {
         currentStep={currentStep}
         stepLength={stepsConfig.length}
         isComplete={isComplete}
+        setIsComplete={setIsComplete}
+        handlePrevious={handlePrevious}
+        setCurrentStep={setCurrentStep}
       />
     </div>
   );

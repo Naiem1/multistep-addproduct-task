@@ -3,7 +3,12 @@ import { useForm } from 'react-hook-form';
 import { addProductData } from '../../store/featrue/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-const InventoryDetails = ({ handleNext, currentStep, stepLength }) => {
+const InventoryDetails = ({
+  handleNext,
+  currentStep,
+  stepLength,
+  handlePrevious,
+}) => {
   const {
     register,
     handleSubmit,
@@ -13,28 +18,12 @@ const InventoryDetails = ({ handleNext, currentStep, stepLength }) => {
   const onSubmit = (data) => {
     dispatch(addProductData(data));
     handleNext();
-    console.log(data);
   };
 
   const state = useSelector((state) => state);
-  console.log('[inventoryDetails] state==>>', state);
   return (
     <>
       <form id="product-form" onSubmit={handleSubmit(onSubmit)}>
-        {/* <FormContent register={register} errors={errors} /> */}
-
-        {/* <Stack direction="row" spacing={2}>
-          {currentStep > 1 ? (
-            <Button color="inherit" variant="contained">
-              Back
-            </Button>
-          ) : null}
-
-          <Button  type='button' className="btn" variant="contained">
-            {currentStep === stepsConfig.length ? 'Submit' : 'Next'}
-          </Button>
-        </Stack> */}
-
         <div>
           <label htmlFor="title">Weight:</label>
           <input
@@ -96,9 +85,22 @@ const InventoryDetails = ({ handleNext, currentStep, stepLength }) => {
             </small>
           )}
         </div>
-        <Button variant="contained" type="submit">
-          Next
-        </Button>
+
+        <Stack direction="row" spacing={2}>
+          {currentStep > 1 ? (
+            <Button
+              color="inherit"
+              variant="contained"
+              onClick={handlePrevious}
+            >
+              Back
+            </Button>
+          ) : null}
+
+          <Button type="submit" className="btn" variant="contained">
+            {currentStep === stepLength ? 'Submit' : 'Next'}
+          </Button>
+        </Stack>
       </form>
     </>
   );

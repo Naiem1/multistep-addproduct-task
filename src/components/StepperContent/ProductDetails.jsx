@@ -15,12 +15,9 @@ const ProductDetails = ({ handleNext, currentStep, stepLength }) => {
     handleNext();
     dispatch(addProductData(data));
 
-    console.log('Submitted');
-    // Handle form submission, e.g., send data to the server
   };
 
   const state = useSelector((state) => state);
-  console.log('[productDetails]state==>>', state);
 
   return (
     <>
